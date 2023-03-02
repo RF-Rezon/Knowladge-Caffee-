@@ -4,8 +4,72 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Toolkit</title>
+    <title>AI ToolKit</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          fontFamily: {
+            sans: ["verdana", "sans-serif"],
+            body: ["verdana", "sans-serif"],
+            mono: ["ui-monospace", "monospace"],
+          },
+        },
+        corePlugins: {
+          preflight: false,
+        },
+      };
+    </script>
   </head>
-  <body></body>
+  <body>
+    <div class="flex flex-col items-center">
+      <p class="text-center font-semibold text-4xl text-gray-700 py-5 my-2">AI Universe Hub</p>
+      <button
+        data-te-ripple-init
+        data-te-ripple-color="light"
+        type="button"
+        class="rounded-full bg-primary-100 px-6 py-4 mb-4 text-xl font-medium leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200"
+      >
+        Sort By Date
+      </button>
+
+      <!--  🌟🌟  cards  -->
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 my-6">
+        <div class="flex justify-center">
+          <div class="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700">
+            <a href="#!" data-te-ripple-init data-te-ripple-color="light">
+              <img class="rounded-t-lg" src="https://tecdn.b-cdn.net/img/new/standard/nature/186.jpg" alt="" />
+            </a>
+            <div class="p-6">
+              <h5 class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">Features</h5>
+              <p class="mb-4 text-base text-gray-500 text-neutral-600 dark:text-neutral-200">
+                1. First line <br />
+                2. Sceond Line <br />
+                3. Third Line
+              </p>
+              <hr class="border-2 my-6" />
+              <div class="flex justify-between items-center">
+                <div id="left">
+                  <h5 class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">ChatGPT</h5>
+                  <div class="flex items-center space-x-4 justify-start py-3">
+                    <img src="./calendar.svg" alt="calendar" srcset="" /> <span>02/03/2022</span>
+                  </div>
+                </div>
+                <div id="right" class="mr-3">
+                  <a href="" data-te-ripple-init data-te-ripple-color="light"
+                    ><img src="./arrow-right-circle.svg" alt="arrow-right-circle"
+                  /></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+  </body>
 </html>
