@@ -14,9 +14,11 @@ let all = () => {
 all();
 
 let sceondFunction = (info) => {
+ 
   let cards = document.getElementById("cards");
   cards.innerHTML = "";
   info.forEach((e) => {
+
     let card = document.createElement("div");
     card.classList.add("card");
     card.innerHTML = `
@@ -73,7 +75,6 @@ let all_2  = (id)=> {
 };
 
 let modalFunc = (e) => {
-  console.log(e);
   let {input_output_examples, integrations, pricing, use_cases} = e;
   if (!input_output_examples && !integrations && !pricing && !use_cases) {
     alert("No enough data for details");
@@ -165,7 +166,7 @@ let modalFunc = (e) => {
                 data-te-modal-dismiss
                 aria-label="Close"
               >
-                ${e.accuracy.score ? e.accuracy.score : "No rating"}
+                <span>${e.accuracy.score ? e.accuracy.score : "No rating"}<span>
               </div>
             </div>
           </div>
