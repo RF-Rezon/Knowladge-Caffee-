@@ -1,81 +1,25 @@
-let all = () => {
-  fetch("https://openapi.programming-hero.com/api/ai/tools")
-    .then((response) => response.json())
-    .then((data) => sceondFunction(data.data.tools.slice(0, 6)));
-};
-all();
-
-let sceondFunction = (info) => {
-  let cards = document.getElementById("cards");
-  cards.innerHTML = "";
-  info.forEach((e) => {
-    let card = document.createElement("div");
-    card.classList.add("card");
-    card.innerHTML = `
-    <div class="flex justify-center ">
-    <div class="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700 insideCard">
-        <a href="#!" data-te-ripple-init data-te-ripple-color="light">
-          <img class="rounded-t-lg" src="${e.image}" alt="" />
-        </a>
-        <div class="p-6">
-          <h5 class="mb-2 text-2xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-            Features
-          </h5>
-          <p class="mb-4 text-lg text-gray-500">
-           ${e.features} 
-          </p>
-          <hr class="border-2 my-6" />
-          <div class="flex justify-between items-center">
-            <div id="left">
-              <h5 class="mb-2 text-2xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-                ${e.name}
-              </h5>
-              <div class="flex items-center space-x-4 justify-start py-3">
-                <img src="./calendar.svg" alt="calendar" srcset="" />
-                <span class="text-gray-500">${e.published_in}</span>
-              </div>
-            </div>
-            <div id="right" class="mr-3">
-              <a 
-                onclick="all_2('${e.id}')"
-                href=""
-                data-te-toggle="modal"
-                data-te-target="#exampleModalCenter"
-                data-te-ripple-init
-                data-te-ripple-color="light"
-                ><img src="./arrow-right-circle.svg" alt="arrow-right-circle"
-              /></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-      `;
-
-    cards.appendChild(card);
-  });
-  
-};
-
-
-let all_2  = (id)=> {
-  fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
-  .then((response) => response.json())
-  .then((data) => modalFunc(data.data))
-};
-
-let modalFunc = (e) => {
-  console.log(e);
-  
- let integrationsList = (e)=> {
-  for (let i = 0; i < e.length; i++) {
-   return e[i];
- }
- }
-
-  let modali = document.getElementById("modali");
-  modali.innerHTML = `
+<div
+  data-te-modal-init
+  class="fixed top-0 left-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
+  id="exampleModalCenter"
+  tabindex="-1"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-modal="true"
+  role="dialog"
+>
   <div
+    data-te-modal-dialog-ref
+    class="pointer-events-none relative flex h-auto w-auto mx-auto translate-y-[-50px] items-center opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:min-h-[calc(100%-3.5rem)] min-[576px]:max-w-[800px]"
+  >
+    <div
+      id="modali"
+      class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none dark:bg-neutral-600"
+    ></div>
+  </div>
+</div>
+
+..................
+<div
   class="flex flex-shrink-0 items-center justify-end rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50"
 >
   <div class="bg-blue-400 rounded-full flex items-center justify-center p-2">
@@ -161,17 +105,3 @@ let modalFunc = (e) => {
     </div>
   </div>
 </div>
-`;
-
-};
-
-let emtyHTML = () => {
-  document.getElementById("modali").innerHTML = "";
-};
-
-
-let showallCards = ()=>{
-  fetch("https://openapi.programming-hero.com/api/ai/tools")
-    .then((response) => response.json())
-    .then((data) => sceondFunction(data.data.tools));
-}
