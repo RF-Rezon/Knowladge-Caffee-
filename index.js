@@ -1,7 +1,15 @@
+let togglespnier = (isLoding)=>{
+  let snpier = document.getElementById("snpier");
+  if(isLoding){
+    snpier.classList.add("hidden");
+  }
+}
+
 let all = () => {
   fetch("https://openapi.programming-hero.com/api/ai/tools")
     .then((response) => response.json())
     .then((data) => sceondFunction(data.data.tools.slice(0, 6)));
+    togglespnier(true);
 };
 all();
 
@@ -37,7 +45,7 @@ let sceondFunction = (info) => {
             </div>
             <div id="right" class="mr-3">
               <a 
-                onclick="all_2('${e.id}')"
+                onclick="all_2('${e.id ? e.id : prompt("No Details Found.")}')"
                 href=""
                 data-te-toggle="modal"
                 data-te-target="#exampleModalCenter"
@@ -66,11 +74,23 @@ let all_2  = (id)=> {
 
 let modalFunc = (e) => {
   console.log(e);
+  let {input_output_examples, integrations, pricing, use_cases} = e;
+  if (!input_output_examples && !integrations && !pricing && !use_cases) {
+    alert("No enough data for details");
+    return;
+  };
+ let integrationsList = ()=> {
   
- let integrationsList = (e)=> {
-  for (let i = 0; i < e.length; i++) {
-   return e[i];
+  let xc = e.integrations;
+  if(xc == null || xc == undefined){
+    return ("No Data Found");
+  }else{
+    return [...xc];
+  }
  }
+
+ let hideaccu = (noRank)=> {
+  document.getElementById("accubtn").style.display = "none"
  }
 
   let modali = document.getElementById("modali");
@@ -103,16 +123,16 @@ let modalFunc = (e) => {
   <!-- mokkka -->
   <div class="flex items-center flex-col md:flex-row justify-between space-x-6 my-6 m-4">
     <div class="bg-sky-200 p-3 rounded-2xl basis-1/2">
-      <p class="text-2xl font-semibold text-gray-600 p-2 m-1">${e.description}</p>
+      <p class="text-2xl font-semibold text-gray-600 p-2 m-1">${e.description ? e.description : "No description found"}</p>
       <div class="flex items-center justify-between p-2 py-3 space-x-4">
         <div class="p-4 m-1 bg-white rounded-2xl">
-          <p class="text-green-500 font-semibold text-center">${e.pricing[0].price} ${e.pricing[0].plan}</p>
+          <p class="text-green-500 font-semibold text-center">${e.pricing[0].price == 0 ? "No cost" : e.pricing[0].price } ${e.pricing[0].plan}</p>
         </div>
         <div class="p-4 m-1 bg-white rounded-2xl">
-          <p class="text-yellow-500 font-semibold text-center">${e.pricing[1].price} ${e.pricing[1].plan}</p>
+          <p class="text-yellow-500 font-semibold text-center">${e.pricing[1].price == 0 ? "No cost" : e.pricing[1].price } ${e.pricing[1].plan}</p>
         </div>
         <div class="p-4 m-1 bg-white rounded-2xl">
-          <p class="text-red-500 font-semibold text-center">${e.pricing[2].price} ${e.pricing[2].plan}</p>
+          <p class="text-red-500 font-semibold text-center">${e.pricing[2].price == 0 ? "No cost" : e.pricing[2].price } ${e.pricing[2].plan}</p>
         </div>
       </div>
       <div class="flex items-center space-x-6">
@@ -127,7 +147,7 @@ let modalFunc = (e) => {
         <div class="p-2 m-4">
           <h5 class="mb-2 text-2xl font-semibold text-gray-600 leading-tight dark:text-neutral-50">Integrations</h5>
           <ul class="list-disc">
-            <li class="text-gray-500">${integrationsList(e.integrations)}</li>
+            <li class="text-gray-500">${integrationsList()}</li>
           </ul>
         </div>
       </div>
@@ -139,22 +159,21 @@ let modalFunc = (e) => {
             <a href="#!" data-te-ripple-init data-te-ripple-color="light">
               <img class="rounded-t-lg" src="${e.image_link[0]}" alt="" />
             </a>
-            <div class="absolute right-0 top-0">
-              <button
-                type="button"
+            <div class="absolute right-0 top-0" id="accubtn">
+              <div
                 class="text-white box-content rounded-2xl border-none hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none bg-pink-300 text-base p-2 px-3"
                 data-te-modal-dismiss
                 aria-label="Close"
               >
-                94% Accuracy
-              </button>
+                ${e.accuracy.score ? e.accuracy.score : "No rating"}
+              </div>
             </div>
           </div>
           <div class="p-6">
             <h5 class="mb-6 text-2xl font-semibold text-gray-600 leading-tight dark:text-neutral-50">
-              ${e.input_output_examples[0].input}
+              ${e.input_output_examples[0].input ? e.input_output_examples[0].input : "No input output examples"}
             </h5>
-            <p class="mb-4 font-normal text-gray-500">${e.input_output_examples[1].input}</p>
+            <p class="mb-4 font-normal text-gray-500">${e.input_output_examples[0].output ? e.input_output_examples[0].output : "Not found"}</p>
           </div>
         </div>
       </div>
@@ -174,4 +193,5 @@ let showallCards = ()=>{
   fetch("https://openapi.programming-hero.com/api/ai/tools")
     .then((response) => response.json())
     .then((data) => sceondFunction(data.data.tools));
+    togglespnier(true);
 }
